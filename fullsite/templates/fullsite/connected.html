@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title></title>
+    <style>
+         body{
+        background-color: rgb(217, 230, 230);
+ 
+      }
+      .table{
+        background-color: rgb(255, 255, 255);
+      }
+      .Connected{
+        background-color: rgb(29, 77, 11);
+        color: rgb(255, 255, 255);
+      }
+      .Switch Off{
+        background-color: aqua;
+      }
+      .Confirmed{
+        background-color: brown;
+        color: rgb(255, 255, 255);
+      }
+    </style>
+  </head>
+  <body>
+      <div class="row" style="margin:1.5%;">
+        <div class="col-6" style="overflow: scroll;width: 75%;height: 100vh;">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">DATE FILE UPLOAD</th>
+                    <th scope="col">PHONE</th>
+                    <th scope="col">STATUE</th>
+                    <th scope="col">REMARK</th>
+                    <th scope="col">SAVE</th>
+                  </tr>
+                </thead>
+                   <tbody>
+                  {% for i in all_detail %}
+                  <form action="{% url 'update' %}" method="POST">{% csrf_token %}  
+                    <tr>
+                      <th scope="row">{{ i.C_id }}</th>
+                      <td>{{ i.date }}</td><input value="{{ i.date }}" name="date" hidden>
+                      <td>{{ i.phone }}</td><input value="{{ i.phone }}" name="phone" hidden><input value="{{ i.C_id }}" name="id" hidden>
+                      <td>
+                        {% if i.status == "Connected" %}
+                        <style>
+                        </style>
+                        {% endif %}
+                         <select class="form-control {{ i.status }}" name="status" required>
+                          <option class="hidden"  selected disabled>{{ i.status }}</option>
+                          <option>Connected</option>
+                          <option>Switch Off</option>
+                          <option>Not Intersted</option>
+                          <option>Confirmed</option>
+                          <option> Not Pick</option>
+                        </select><br>
+                        
+                      </td>
+                      <td><input value="{{ i.remark }}" name="remark"></td>
+                      <td><button type="submit" class="btn btn-outline-secondary">Submited</button></td>
+                    </tr>
+                  </form>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+        <div class="col-3" style="margin-top:2%">
+            <div style="margin-bottom: 5%;">
+                <img src="https://cdn1.iconfinder.com/data/icons/telephone-set/100/14-512.png" width="100px"alt="" srcset="">
+            </div>
+            <form class="row g-3">
+                <div class="col-auto">
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option selected>Filter call: All</option>
+                        <option>Connected</option>
+                        <option>Switch Off</option>
+                        <option>Not Intersted</option>
+                        <option>Confirmed</option>
+                        <option> Not Pick</option>
+                      </select>                  
+                </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-secondary mb-4">Search</button>
+                  </div>
+              </form>
+              <form class="row g-3">
+                <div class="col-auto">
+                    <input type="password" class="form-control" id="inputPassword2" placeholder="Search Number">
+                  </div>
+                  <div class="col-auto">
+                    <button type="submit" class="btn btn-secondary mb-4">Search</button>
+                  </div>
+              </form>
+        </div>
+  
+      </div>
+    
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
